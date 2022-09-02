@@ -24,9 +24,6 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 ##############################################################
 # Enter Your Code Here
-
-
-
 def check_for_accuracy(pred):
     '''Calculating the accuracy'''
     from sklearn.metrics import accuracy_score
