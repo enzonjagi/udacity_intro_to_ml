@@ -1,16 +1,13 @@
-#!/usr/bin/python3
-
-import joblib
+#!/usr/bin/python
 
 import pickle
-import numpy
 
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_selection import SelectPercentile, f_classif
 
 
-def preprocess(words_file="../tools/word_data.pkl", authors_file="../tools/email_authors.pkl"):
+def preprocess(words_file="../tools/word_data_unix.pkl", authors_file="../tools/email_authors.pkl"):
     """ 
         this function takes a pre-made list of email texts (by default word_data.pkl)
         and the corresponding authors (by default email_authors.pkl) and performs
@@ -43,8 +40,8 @@ def preprocess(words_file="../tools/word_data.pkl", authors_file="../tools/email
         word_data, authors, test_size=0.1, random_state=42)
 
     # text vectorization--go from strings to lists of numbers
-    vectorizer = TfidfVectorizer(
-        sublinear_tf=True, max_df=0.5, stop_words='english')
+    vectorizer = TfidfVectorizer(sublinear_tf=True, max_df=0.5,
+                                 stop_words='english')
     features_train_transformed = vectorizer.fit_transform(features_train)
     features_test_transformed = vectorizer.transform(features_test)
 
@@ -58,8 +55,7 @@ def preprocess(words_file="../tools/word_data.pkl", authors_file="../tools/email
         features_test_transformed).toarray()
 
     # info on the data
-    print("No. of Chris training emails : ", sum(labels_train))
-    print("No. of Sara training emails : ",
-          len(labels_train)-sum(labels_train))
+    print("no. of Chris training emails:", sum(labels_train))
+    print("no. of Sara training emails:", len(labels_train)-sum(labels_train))
 
     return features_train_transformed, features_test_transformed, labels_train, labels_test
